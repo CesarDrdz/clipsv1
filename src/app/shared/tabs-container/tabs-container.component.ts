@@ -1,4 +1,4 @@
-import { Component, AfterContentInit, ContentChild, QueryList } from '@angular/core';
+import { Component, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
 @Component({
@@ -12,7 +12,7 @@ export class TabsContainerComponent implements AfterContentInit {
   // QueryList add a generic to set the type 
   // Adding type safety 
   // the ? will make the new querylist optional
-  @ContentChild(TabComponent) tabs?:
+  @ContentChildren(TabComponent) tabs?:
     QueryList<TabComponent> = new QueryList()
 
   constructor() { }
@@ -26,11 +26,14 @@ export class TabsContainerComponent implements AfterContentInit {
       this.selectTab(this.tabs!.first)
     }
   }
-
+// handles the click event 
   selectTab(tab: TabComponent) {
     this.tabs?.forEach(tab => {
       tab.active = false
     })
     tab.active = true
+
+    // this prevents the default behavior in the app when switching tabs. w/o adding a param for the event obj. (keeping the address bar/url the same)
+    return false
   }
 }

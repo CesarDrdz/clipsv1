@@ -1,1 +1,5 @@
-<ng-content></ng-content>
+
+<!-- useful if you want to toggle a single class-->
+<div [class.hidden]="!active">
+    <ng-content></ng-content>
+</div>
